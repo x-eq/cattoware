@@ -1,3 +1,4 @@
+--simple loader cuz lazy
 local success, returned = pcall(function() 
     return game:HttpGet("https://raw.githubusercontent.com/CatzCode/cattoware/main/games/" .. game.PlaceId .. ".lua")
 end)
