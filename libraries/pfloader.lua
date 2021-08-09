@@ -55,6 +55,7 @@ local loader = { }; do
                             end
                         end
                     end
+                    client["physics"] = require(game:GetService("ReplicatedFirst").SharedModules.Old.Utilities.Math.physics:Clone())
                     wait(0.69) -- haha nice
                 until (
                     client.getgunlist and
