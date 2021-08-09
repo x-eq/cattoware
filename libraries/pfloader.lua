@@ -1,9 +1,9 @@
 local loader = { }; do
-    loader.loadlibs, loader.loadclient = function()
+    table.insert(loader, function()
         local ui, error = loadstring(game:HttpGet("https://raw.githubusercontent.com/CatzCode/PikaHub/main/Libraries/UI/bruh.lua", true))
         return table.pack(ui()), (error == nil)
-    end, 
-    function()
+    end)
+    table.insert(loader, function()
         local success, returned = pcall(function() 
             local client = { }; do
                 repeat
@@ -77,6 +77,6 @@ local loader = { }; do
             return client
         end)
         return returned, success 
-    end
+    end)
 end
 return table.unpack(loader)
