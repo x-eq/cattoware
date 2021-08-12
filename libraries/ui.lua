@@ -58,12 +58,12 @@ if library.theme.cursor and Drawing and pcall(function() Drawing.new("Image") en
             end
         end
     end)
-end
 
-game:GetService("RunService").RenderStepped:Connect(function()
-    uis.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-    library.cursor.Visible = uis.MouseEnabled and (uis.MouseIconEnabled or game:GetService("GuiService").MenuIsOpen)
-end)
+    game:GetService("RunService").RenderStepped:Connect(function()
+        uis.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+        library.cursor.Visible = uis.MouseEnabled and (uis.MouseIconEnabled or game:GetService("GuiService").MenuIsOpen)
+    end)
+end
 
 function library:CreateWatermark(name, position)
     local gamename = marketplaceservice:GetProductInfo(game.PlaceId).Name
