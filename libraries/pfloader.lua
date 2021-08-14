@@ -8,7 +8,7 @@ local loader = { }; do
 			local client = { }; do
 				client["physics"] = require(game:GetService("ReplicatedFirst").SharedModules.Old.Utilities.Math.physics:Clone())
 				for i,v in pairs(getgc(true)) do
-					spawn(function() 
+					pcall(function() 
 						if (type(v) == "function") then
 							local name = debug.getinfo(v).name; do
 								if (string.lower(name) == "getgunlist") then
