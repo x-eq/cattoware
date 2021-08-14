@@ -1,11 +1,11 @@
 local loader = { }; do
-    table.insert(loader, function()
-        local ui, error = loadstring(game:HttpGet("https://raw.githubusercontent.com/CatzCode/cattoware/main/libraries/ui.lua", true))
-        return table.pack(ui()), (error == nil)
-    end)
-    table.insert(loader, function()
-        local success, returned = pcall(function() 
-            local client = { }; do
+	table.insert(loader, function()
+		local ui, error = loadstring(game:HttpGet("https://raw.githubusercontent.com/CatzCode/cattoware/main/libraries/ui.lua", true))
+		return table.pack(ui()), (error == nil)
+	end)
+	table.insert(loader, function()
+		local success, returned = pcall(function() 
+			local client = { }; do
 				client["physics"] = require(game:GetService("ReplicatedFirst").SharedModules.Old.Utilities.Math.physics:Clone())
 				for i,v in pairs(getgc(true)) do
 					if (type(v) == "function") then
@@ -45,10 +45,10 @@ local loader = { }; do
 						end
 					end
 				end
-            end
-            return client
-        end)
-        return returned, ((
+			end
+			return client
+		end)
+		return returned, ((
 			returned.physics and
 			returned.getgunlist and
 			returned.loadplayer and
