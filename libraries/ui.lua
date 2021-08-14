@@ -44,25 +44,30 @@ library.theme = {
     itemscolor2 = Color3.fromRGB(210, 210, 210)
 }
 
-if library.theme.cursor and Drawing and pcall(function() Drawing.new("Image") end) then
-    library.cursor = Drawing.new("Image")
-    library.cursor.Data = game:HttpGet(library.theme.cursorimg)
-    library.cursor.Size = Vector2.new(64, 64)
-    library.cursor.Visible = uis.MouseEnabled
-    library.cursor.Rounding = 0
-    library.cursor.Position = Vector2.new(mouse.X - 32, mouse.Y + 6)
-    uis.InputChanged:Connect(function(input)
-        if uis.MouseEnabled then
-            if input.UserInputType == Enum.UserInputType.MouseMovement then
-                library.cursor.Position = Vector2.new(input.Position.X - 32, input.Position.Y + 7)
+if library.theme.cursor and Drawing then
+    local success = pcall(function() 
+        library.cursor = Drawing.new("Image")
+        library.cursor.Data = game:HttpGet(library.theme.cursorimg)
+        library.cursor.Size = Vector2.new(64, 64)
+        library.cursor.Visible = uis.MouseEnabled
+        library.cursor.Rounding = 0
+        library.cursor.Position = Vector2.new(mouse.X - 32, mouse.Y + 6)
+        uis.InputChanged:Connect(function(input)
+            if uis.MouseEnabled then
+                if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    library.cursor.Position = Vector2.new(input.Position.X - 32, input.Position.Y + 7)
+                end
             end
-        end
+        end)
     end)
-
-    game:GetService("RunService").RenderStepped:Connect(function()
-        uis.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-        library.cursor.Visible = uis.MouseEnabled and (uis.MouseIconEnabled or game:GetService("GuiService").MenuIsOpen)
-    end)
+    if success then
+        game:GetService("RunService").RenderStepped:Connect(function()
+            uis.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+            library.cursor.Visible = uis.MouseEnabled and (uis.MouseIconEnabled or game:GetService("GuiService").MenuIsOpen)
+        end)
+    elseif not success and library.cursor then
+        library.cursor:Remove()
+    end
 end
 
 function library:CreateWatermark(name, position)
