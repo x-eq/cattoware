@@ -52,6 +52,8 @@ if library.theme.cursor and Drawing then
         library.cursor.Visible = uis.MouseEnabled
         library.cursor.Rounding = 0
         library.cursor.Position = Vector2.new(mouse.X - 32, mouse.Y + 6)
+    end)
+    if success and library.cursor then
         uis.InputChanged:Connect(function(input)
             if uis.MouseEnabled then
                 if input.UserInputType == Enum.UserInputType.MouseMovement then
@@ -59,8 +61,7 @@ if library.theme.cursor and Drawing then
                 end
             end
         end)
-    end)
-    if success then
+        
         game:GetService("RunService").RenderStepped:Connect(function()
             uis.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
             library.cursor.Visible = uis.MouseEnabled and (uis.MouseIconEnabled or game:GetService("GuiService").MenuIsOpen)
