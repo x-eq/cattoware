@@ -7,7 +7,8 @@ local loader = { }; do
         local success, returned = pcall(function() 
             local client = { }; do
                 repeat
-                    for i,v in pairs(getgc(true)) do
+					client["physics"] = require(game:GetService("ReplicatedFirst").SharedModules.Old.Utilities.Math.physics:Clone())
+					for i,v in pairs(getgc()) do
                         if (type(v) == "function") then
                             local name = debug.getinfo(v).name; do
                                 if (string.lower(name) == "getgunlist") then
@@ -31,6 +32,8 @@ local loader = { }; do
                                 end
                             end
                         end
+					end
+                    for i,v in pairs(getgc(true)) do
                         if type(v) == "table" then
                             if (rawget(v, "step") and rawget(v, "reset") and rawget(v, "new")) then
                                 client["particle"] = v
@@ -55,7 +58,6 @@ local loader = { }; do
                             end
                         end
                     end
-                    client["physics"] = require(game:GetService("ReplicatedFirst").SharedModules.Old.Utilities.Math.physics:Clone())
                     wait(0.69) -- haha nice
                 until (
                     client.getgunlist and
