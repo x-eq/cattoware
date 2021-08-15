@@ -2,6 +2,7 @@ getgenv().Framework = {
     getpos = "Head",
     Enabled = false,
     VisiblityCheck = false,
+    KillAura = false
 }
 
 local lplr = game.Players.LocalPlayer
@@ -55,3 +56,29 @@ old = hookfunction(mt.__namecall, newcclosure(function(self, ...)
 end))
 
 setreadonly(mt, true)
+
+spawn(function()
+        while wait() do
+            if Framework.KillAura then
+                for i5,v5 in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                    if v5.Name == "Cooldowntime" then
+                        wait(v5.Value)
+                    end
+                end
+                for i,v in pairs(game:GetService("Players"):GetChildren()) do
+                    for i2,v2 in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                        if v2.Name == "swing" then
+                            v2:FireServer()
+                        end
+                        if v2.Name == "hit" then
+                            for i1,v1 in pairs(game:GetService("Players"):GetChildren()) do
+                                if v1.Name ~= game.Players.LocalPlayer.Name then
+                                    v2:FireServer(v1.Character.Humanoid)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+end)
