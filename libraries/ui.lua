@@ -1711,7 +1711,7 @@ function library:CreateWindow(name, size, hidebutton)
                     return colorpicker
                 end
 
-                function toggle:AddSlider(min, default, max, decimals, callback, flag)
+                function toggle:AddSlider(min, default, max, decimals, prefix, callback, flag)
                     local slider = { }
                     slider.text = text or ""
                     slider.callback = callback or function(value) end
@@ -1719,6 +1719,7 @@ function library:CreateWindow(name, size, hidebutton)
                     slider.max = max or 100
                     slider.decimals = decimals or 1
                     slider.default = default or slider.min
+		            slider.prefix = prefix or ""
                     slider.flag = flag or ( (toggle.text or "") .. tostring(#toggle.Items:GetChildren()))
     
                     slider.value = slider.default
@@ -1823,7 +1824,7 @@ function library:CreateWindow(name, size, hidebutton)
                             library.flags[slider.flag] = slider.value
                         end
                         slider.SlideBar:TweenSize(UDim2.fromOffset(percent * slider.Main.AbsoluteSize.X, slider.Main.AbsoluteSize.Y), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 0.05)
-                        slider.InputLabel.Text = slider.value
+                        slider.InputLabel.Text = slider.value .. slider.prefix
                         pcall(slider.callback, slider.value)
                     end
                     slider:Set(slider.default)
@@ -2069,7 +2070,7 @@ function library:CreateWindow(name, size, hidebutton)
                 slider.InputLabel.ClearTextOnFocus = false
                 slider.InputLabel.Size = UDim2.fromOffset(sector.Main.Size.X.Offset - size.X - 15, 12)
                 slider.InputLabel.Font = window.theme.font
-                slider.InputLabel.Text = "0"
+                slider.InputLabel.Text = "0" 
                 slider.InputLabel.TextColor3 = window.theme.itemscolor
                 slider.InputLabel.Position = UDim2.fromOffset(size.X + 3, -3)
                 slider.InputLabel.TextSize = 15
@@ -2166,7 +2167,7 @@ function library:CreateWindow(name, size, hidebutton)
                         library.flags[slider.flag] = slider.value
                     end
                     slider.SlideBar:TweenSize(UDim2.fromOffset(percent * slider.Main.AbsoluteSize.X, slider.Main.AbsoluteSize.Y), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 0.05)
-					slider.InputLabel.Text = slider.value
+					slider.InputLabel.Text = slider.value .. slider.prefix
 					pcall(slider.callback, slider.value)
 				end
                 slider:Set(slider.default)
@@ -2178,7 +2179,7 @@ function library:CreateWindow(name, size, hidebutton)
                     if (slider.InputLabel.Text:match("^%d+$")) then
                         slider:Set(tonumber(slider.InputLabel.Text))
                     else
-                        slider.InputLabel.Text = tostring(slider.value)
+                        slider.InputLabel.Text = tostring(slider.value) .. slider.prefix
                     end
                 end)
 
