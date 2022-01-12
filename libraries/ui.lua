@@ -2028,13 +2028,14 @@ function library:CreateWindow(name, size, hidebutton)
                 return textbox
             end
             
-            function sector:AddSlider(text, min, default, max, decimals, callback, flag)
+            function sector:AddSlider(text, min, default, max, decimals, prefix, callback, flag)
                 local slider = { }
                 slider.text = text or ""
                 slider.callback = callback or function(value) end
                 slider.min = min or 0
                 slider.max = max or 100
                 slider.decimals = decimals or 1
+                slider.prefix = prefix or ""
                 slider.default = default or slider.min
                 slider.flag = flag or text or ""
 
